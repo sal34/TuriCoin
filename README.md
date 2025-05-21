@@ -1,19 +1,24 @@
-Bitcoin Core integration/staging tree
+TuriCoin integration/staging tree
 =====================================
 
-https://bitcoincore.org
+https://github.com/sal34/TuriCoin
 
-For an immediately usable, binary version of the Bitcoin Core software, see
-https://bitcoincore.org/en/download/.
+TuriCoin is a fork of Bitcoin Core with modified parameters.
 
-What is Bitcoin Core?
+What is TuriCoin?
 ---------------------
 
-Bitcoin Core connects to the Bitcoin peer-to-peer network to download and fully
+TuriCoin is a cryptocurrency that connects to its own peer-to-peer network to download and fully
 validate blocks and transactions. It also includes a wallet and graphical user
 interface, which can be optionally built.
 
-Further information about Bitcoin Core is available in the [doc folder](/doc).
+TuriCoin features:
+- 10 second block time (vs Bitcoin's 10 minutes)
+- Difficulty adjustment every 720 blocks (approximately once per day)
+- Custom address format starting with 'T'
+- New genesis block created on May 21, 2025
+
+Further information about TuriCoin is available in the [doc folder](/doc).
 
 License
 -------
