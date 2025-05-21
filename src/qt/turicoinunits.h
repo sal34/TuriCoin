@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOIN_QT_BITCOINUNITS_H
-#define BITCOIN_QT_BITCOINUNITS_H
+#ifndef BITCOIN_QT_TURICOINUNITS_H
+#define BITCOIN_QT_TURICOINUNITS_H
 
 #include <consensus/amount.h>
 
@@ -26,24 +26,24 @@
 #define THIN_SP_UTF8 REAL_THIN_SP_UTF8
 #define THIN_SP_HTML HTML_HACK_SP
 
-/** Bitcoin unit definitions. Encapsulates parsing and formatting
+/** TuriCoin unit definitions. Encapsulates parsing and formatting
    and serves as list model for drop-down selection boxes.
 */
-class BitcoinUnits: public QAbstractListModel
+class TuriCoinUnits: public QAbstractListModel
 {
     Q_OBJECT
 
 public:
-    explicit BitcoinUnits(QObject *parent);
+    explicit TuriCoinUnits(QObject *parent);
 
-    /** Bitcoin units.
-      @note Source: https://en.bitcoin.it/wiki/Units . Please add only sensible ones
+    /** TuriCoin units.
+      @note Based on Bitcoin units but customized for TuriCoin
      */
     enum class Unit {
-        BTC,
-        mBTC,
-        uBTC,
-        SAT
+        TURI,
+        mTURI,
+        uTURI,
+        TCOIN
     };
     Q_ENUM(Unit)
 
@@ -102,15 +102,15 @@ public:
         return text;
     }
 
-    //! Return maximum number of base units (Satoshis)
+    //! Return maximum number of base units (TCoins)
     static CAmount maxMoney();
 
 private:
     QList<Unit> unitlist;
 };
-typedef BitcoinUnits::Unit BitcoinUnit;
+typedef TuriCoinUnits::Unit TuriCoinUnit;
 
-QDataStream& operator<<(QDataStream& out, const BitcoinUnit& unit);
-QDataStream& operator>>(QDataStream& in, BitcoinUnit& unit);
+QDataStream& operator<<(QDataStream& out, const TuriCoinUnit& unit);
+QDataStream& operator>>(QDataStream& in, TuriCoinUnit& unit);
 
-#endif // BITCOIN_QT_BITCOINUNITS_H
+#endif // BITCOIN_QT_TURICOINUNITS_H

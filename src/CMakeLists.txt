@@ -355,9 +355,9 @@ if(ENABLE_IPC AND BUILD_DAEMON)
   )
   target_link_libraries(turicoin-node
     core_interface
-    bitcoin_node
+    turicoin_node
     bitcoin_ipc
-    $<TARGET_NAME_IF_EXISTS:bitcoin_wallet>
+    $<TARGET_NAME_IF_EXISTS:turicoin_wallet>
   )
   install_binary_component(turicoin-node)
 endif()
@@ -397,9 +397,9 @@ if(BUILD_CLI)
   add_windows_application_manifest(turicoin-cli)
   target_link_libraries(turicoin-cli
     core_interface
-    bitcoin_cli
-    bitcoin_common
-    bitcoin_util
+    turicoin_cli
+    turicoin_common
+    turicoin_util
     libevent::core
     libevent::extra
   )
@@ -413,8 +413,8 @@ if(BUILD_TX)
   add_windows_application_manifest(turicoin-tx)
   target_link_libraries(turicoin-tx
     core_interface
-    bitcoin_common
-    bitcoin_util
+    turicoin_common
+    turicoin_util
     univalue
   )
   install_binary_component(turicoin-tx HAS_MANPAGE)
@@ -427,8 +427,8 @@ if(BUILD_UTIL)
   add_windows_application_manifest(turicoin-util)
   target_link_libraries(turicoin-util
     core_interface
-    bitcoin_common
-    bitcoin_util
+    turicoin_common
+    turicoin_util
   )
   install_binary_component(turicoin-util HAS_MANPAGE)
 endif()
@@ -459,7 +459,7 @@ if(BUILD_UTIL_CHAINSTATE)
   target_link_libraries(turicoin-chainstate
     PRIVATE
       core_interface
-      bitcoinkernel
+      turicoinkernel
   )
 endif()
 
