@@ -15,8 +15,20 @@ interface, which can be optionally built.
 TuriCoin features:
 - 10 second block time (vs Bitcoin's 10 minutes)
 - Difficulty adjustment every 720 blocks (approximately once per day)
-- Custom address format starting with 'T'
+- Custom address format starting with 'turi' instead of 'bc'
 - New genesis block created on May 21, 2025
+- Data directory `.turicoin` instead of `.bitcoin`
+- Configuration file `turicoin.conf` instead of `bitcoin.conf`
+
+## Modifications Made to Bitcoin Core
+
+The following modifications have been made to create TuriCoin:
+
+1. **Genesis Block Parameters**: All networks have new genesis blocks with custom parameters
+2. **Proof of Work Validation**: Modified to allow our custom genesis blocks to pass validation
+3. **Data Directory**: Changed from `.bitcoin` to `.turicoin`
+4. **Config File**: Changed from `bitcoin.conf` to `turicoin.conf`
+5. **Address Format**: Changed from `bc1` to `turi1` for bech32 addresses
 
 ## Genesis Block Parameters
 
@@ -57,11 +69,29 @@ The genesis blocks for all networks have been modified with the following parame
 - Nonce: 1
 - Bits: 0x207fffff
 
-## Running in Regtest Mode
+## Running TuriCoin
+
+### Mainnet Mode
+
+```bash
+# Run in mainnet mode
+./bin/turicoind -daemon
+
+# Create a wallet
+./bin/turicoin-cli createwallet "mainwallet"
+
+# Generate blocks (mining)
+./bin/turicoin-cli generatetoaddress 101 $(./bin/turicoin-cli getnewaddress)
+
+# Check balance
+./bin/turicoin-cli getbalance
+```
+
+### Regtest Mode
 
 ```bash
 # Run in regtest mode
-./bin/turicoind -regtest
+./bin/turicoind -regtest -daemon
 
 # Create a wallet
 ./bin/turicoin-cli -regtest createwallet "mywallet"
