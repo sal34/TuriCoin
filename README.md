@@ -18,6 +18,61 @@ TuriCoin features:
 - Custom address format starting with 'T'
 - New genesis block created on May 21, 2025
 
+## Genesis Block Parameters
+
+The genesis blocks for all networks have been modified with the following parameters:
+
+### Mainnet
+- Hash: `1c9cc008e6ba7860db19edae99052c3a0d22e5dfce5fffb5d9f90b1559dd320e`
+- Merkle Root: `9197e97f6b8b25bb7d752fbcf7a633fb2da64052ba3dfd73bf8cb0ef47eb28d1`
+- Timestamp: 1296688602 (February 2, 2011)
+- Nonce: 2
+- Bits: 0x1d00ffff
+
+### Testnet
+- Hash: `61901b477d2f833c6a8161b79b7508dbd7b79df9cc66ae4c2d48683beff1ea3f`
+- Merkle Root: `9197e97f6b8b25bb7d752fbcf7a633fb2da64052ba3dfd73bf8cb0ef47eb28d1`
+- Timestamp: 1296688602 (February 2, 2011)
+- Nonce: 2
+- Bits: 0x1d00ffff
+
+### Testnet4
+- Hash: `b419e710e8f282f5a8c5b01d6c8c4a63e5efb005f98784d8177c699f67b94b55`
+- Merkle Root: `9197e97f6b8b25bb7d752fbcf7a633fb2da64052ba3dfd73bf8cb0ef47eb28d1`
+- Timestamp: 1296688602 (February 2, 2011)
+- Nonce: 2
+- Bits: 0x1d00ffff
+
+### Signet
+- Hash: `aea9f1c403c04ab40dd2cb90cd90494667512677750323e82bd8a9a1441b5ec2`
+- Merkle Root: `9197e97f6b8b25bb7d752fbcf7a633fb2da64052ba3dfd73bf8cb0ef47eb28d1`
+- Timestamp: 1296688602 (February 2, 2011)
+- Nonce: 2
+- Bits: 0x1d00ffff
+
+### Regtest
+- Hash: `a5a67afda65968cf23c1bdd988c46c2dec6d5f627629eb676a4ef63eaa8711c6`
+- Merkle Root: `9197e97f6b8b25bb7d752fbcf7a633fb2da64052ba3dfd73bf8cb0ef47eb28d1`
+- Timestamp: 1296688602 (February 2, 2011)
+- Nonce: 1
+- Bits: 0x207fffff
+
+## Running in Regtest Mode
+
+```bash
+# Run in regtest mode
+./bin/turicoind -regtest
+
+# Create a wallet
+./bin/turicoin-cli -regtest createwallet "mywallet"
+
+# Generate blocks
+./bin/turicoin-cli -regtest -rpcwallet=mywallet generatetoaddress 101 $(./bin/turicoin-cli -regtest -rpcwallet=mywallet getnewaddress)
+
+# Check balance
+./bin/turicoin-cli -regtest -rpcwallet=mywallet getbalance
+```
+
 Further information about TuriCoin is available in the [doc folder](/doc).
 
 License
