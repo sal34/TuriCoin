@@ -140,6 +140,14 @@ public:
         uint32_t nNonce = 2083236893; // Using Bitcoin's nonce for now, would need to be mined for production
         genesis = CreateGenesisBlock(nTime, nNonce, 0x1d00ffff, 1, 50 * COIN);
         consensus.hashGenesisBlock = genesis.GetHash();
+        // Print the genesis block hash for debugging
+        fprintf(stderr, "TuriCoin Mainnet Genesis Hash: %s\n", consensus.hashGenesisBlock.ToString().c_str());
+        fprintf(stderr, "TuriCoin Mainnet Merkle Root: %s\n", genesis.hashMerkleRoot.ToString().c_str());
+        
+        // Verify the genesis block hash
+        assert(consensus.hashGenesisBlock == uint256{"1c9cc008e6ba7860db19edae99052c3a0d22e5dfce5fffb5d9f90b1559dd320e"});
+        assert(genesis.hashMerkleRoot == uint256{"9197e97f6b8b25bb7d752fbcf7a633fb2da64052ba3dfd73bf8cb0ef47eb28d1"});
+        
         // Note: In a production environment, we would need to mine a valid genesis block
         // with the correct nonce to satisfy the proof of work requirement
 
@@ -232,8 +240,13 @@ public:
 
         genesis = CreateGenesisBlock(1296688602, 414098458, 0x1d00ffff, 1, 50 * COIN);
         consensus.hashGenesisBlock = genesis.GetHash();
-        assert(consensus.hashGenesisBlock == uint256{"000000000933ea01ad0ee984209779baaec3ced90fa3f408719526f8d77f4943"});
-        assert(genesis.hashMerkleRoot == uint256{"4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b"});
+        // Print the genesis block hash for debugging
+        fprintf(stderr, "TuriCoin Testnet Genesis Hash: %s\n", consensus.hashGenesisBlock.ToString().c_str());
+        fprintf(stderr, "TuriCoin Testnet Merkle Root: %s\n", genesis.hashMerkleRoot.ToString().c_str());
+        
+        // Verify the genesis block hash
+        assert(consensus.hashGenesisBlock == uint256{"61901b477d2f833c6a8161b79b7508dbd7b79df9cc66ae4c2d48683beff1ea3f"});
+        assert(genesis.hashMerkleRoot == uint256{"9197e97f6b8b25bb7d752fbcf7a633fb2da64052ba3dfd73bf8cb0ef47eb28d1"});
 
         vFixedSeeds.clear();
         vSeeds.clear();
@@ -328,16 +341,16 @@ public:
 
         const char* testnet4_genesis_msg = "03/May/2024 000000000000000000001ebd58c244970b3aa9d783bb001011fbe8ea8e98e00e";
         const CScript testnet4_genesis_script = CScript() << "000000000000000000000000000000000000000000000000000000000000000000"_hex << OP_CHECKSIG;
-        genesis = CreateGenesisBlock(testnet4_genesis_msg,
-                testnet4_genesis_script,
-                1714777860,
-                393743547,
-                0x1d00ffff,
-                1,
-                50 * COIN);
+        // Use our TuriCoin genesis message instead of testnet4
+        genesis = CreateGenesisBlock(1714777860, 393743547, 0x1d00ffff, 1, 50 * COIN);
         consensus.hashGenesisBlock = genesis.GetHash();
-        assert(consensus.hashGenesisBlock == uint256{"00000000da84f2bafbbc53dee25a72ae507ff4914b867c565be350b0da8bf043"});
-        assert(genesis.hashMerkleRoot == uint256{"7aa0a7ae1e223414cb807e40cd57e667b718e42aaf9306db9102fe28912b7b4e"});
+        // Print the genesis block hash for debugging
+        fprintf(stderr, "TuriCoin Testnet4 Genesis Hash: %s\n", consensus.hashGenesisBlock.ToString().c_str());
+        fprintf(stderr, "TuriCoin Testnet4 Merkle Root: %s\n", genesis.hashMerkleRoot.ToString().c_str());
+        
+        // Verify the genesis block hash
+        assert(consensus.hashGenesisBlock == uint256{"b419e710e8f282f5a8c5b01d6c8c4a63e5efb005f98784d8177c699f67b94b55"});
+        assert(genesis.hashMerkleRoot == uint256{"9197e97f6b8b25bb7d752fbcf7a633fb2da64052ba3dfd73bf8cb0ef47eb28d1"});
 
         vFixedSeeds.clear();
         vSeeds.clear();
@@ -459,8 +472,13 @@ public:
 
         genesis = CreateGenesisBlock(1598918400, 52613770, 0x1e0377ae, 1, 50 * COIN);
         consensus.hashGenesisBlock = genesis.GetHash();
-        assert(consensus.hashGenesisBlock == uint256{"00000008819873e925422c1ff0f99f7cc9bbb232af63a077a480a3633bee1ef6"});
-        assert(genesis.hashMerkleRoot == uint256{"4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b"});
+        // Print the genesis block hash for debugging
+        fprintf(stderr, "TuriCoin Signet Genesis Hash: %s\n", consensus.hashGenesisBlock.ToString().c_str());
+        fprintf(stderr, "TuriCoin Signet Merkle Root: %s\n", genesis.hashMerkleRoot.ToString().c_str());
+        
+        // Verify the genesis block hash
+        assert(consensus.hashGenesisBlock == uint256{"aea9f1c403c04ab40dd2cb90cd90494667512677750323e82bd8a9a1441b5ec2"});
+        assert(genesis.hashMerkleRoot == uint256{"9197e97f6b8b25bb7d752fbcf7a633fb2da64052ba3dfd73bf8cb0ef47eb28d1"});
 
         m_assumeutxo_data = {
             {
@@ -510,6 +528,7 @@ public:
         consensus.fPowAllowMinDifficultyBlocks = true;
         consensus.enforce_BIP94 = opts.enforce_bip94;
         consensus.fPowNoRetargeting = true;
+        consensus.nMinimumChainWork = uint256{0};
 
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].bit = 28;
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].nStartTime = 0;
@@ -563,10 +582,15 @@ public:
             consensus.vDeployments[deployment_pos].min_activation_height = version_bits_params.min_activation_height;
         }
 
-        genesis = CreateGenesisBlock(1296688602, 2, 0x207fffff, 1, 50 * COIN);
+        genesis = CreateGenesisBlock(1296688602, 1, 0x207fffff, 1, 50 * COIN);
         consensus.hashGenesisBlock = genesis.GetHash();
-        assert(consensus.hashGenesisBlock == uint256{"0f9188f13cb7b2c71f2a335e3a4fc328bf5beb436012afca590b1a11466e2206"});
-        assert(genesis.hashMerkleRoot == uint256{"4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b"});
+        // Print the genesis block hash for debugging
+        fprintf(stderr, "TuriCoin Regtest Genesis Hash: %s\n", consensus.hashGenesisBlock.ToString().c_str());
+        fprintf(stderr, "TuriCoin Regtest Merkle Root: %s\n", genesis.hashMerkleRoot.ToString().c_str());
+        
+        // Verify the genesis block hash
+        assert(consensus.hashGenesisBlock == uint256{"a5a67afda65968cf23c1bdd988c46c2dec6d5f627629eb676a4ef63eaa8711c6"});
+        assert(genesis.hashMerkleRoot == uint256{"9197e97f6b8b25bb7d752fbcf7a633fb2da64052ba3dfd73bf8cb0ef47eb28d1"});
 
         vFixedSeeds.clear(); //!< Regtest mode doesn't have any fixed seeds.
         vSeeds.clear();

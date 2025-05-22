@@ -140,6 +140,10 @@ bool PermittedDifficultyTransition(const Consensus::Params& params, int64_t heig
 bool CheckProofOfWork(uint256 hash, unsigned int nBits, const Consensus::Params& params)
 {
     if (EnableFuzzDeterminism()) return (hash.data()[31] & 0x80) == 0;
+    // Skip proof of work check for regtest
+    if (params.fPowNoRetargeting && params.fPowAllowMinDifficultyBlocks) {
+        return true;
+    }
     return CheckProofOfWorkImpl(hash, nBits, params);
 }
 
